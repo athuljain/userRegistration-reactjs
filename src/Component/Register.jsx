@@ -1,5 +1,6 @@
 import { useContext, useState } from "react"
 import { myContext } from "./Context"
+import { useNavigate } from "react-router-dom";
 
 export default function Register(){
 
@@ -9,14 +10,17 @@ export default function Register(){
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
+    const nav=useNavigate()
+
 
     const handleButtonClick = () => {
         const userData = {  name,email,password,
         };
         setUser([...user,userData]  );
        
-        // navigate("/login");
+        nav("/login");
         console.log("hlooo",user);
+
       };
       
 
