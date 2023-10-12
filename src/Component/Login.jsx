@@ -1,38 +1,54 @@
-import { useContext, useState } from "react"
-import { myContext } from "./Context"
+import { useContext, useState } from "react";
+import { myContext } from "./Context";
 import { useNavigate } from "react-router-dom";
 
-export default function Login(){
-    const {user}=useContext(myContext)
+export default function Login() {
+  const { user,setLogUser } = useContext(myContext);
 
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    
-    const nav=useNavigate()
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
+  const nav = useNavigate();
 
-    function loginBtn(){
-        if(user.find((userData)=>userData.email === email && userData.password === password)){
-           
-            alert("Login successful !!!")
-            nav("/home")
-        }else{
-            alert("invalid email or password")
-        }
-        
+  function loginBtn() {
+    const LoggedUser=user.find(
+        (userData) => userData.email === email && userData.password === password
+      )
+      if(LoggedUser){
+        setLogUser(LoggedUser)
+        alert("Login successful !!!");
+      
+      nav("/home");
+
+      }else {
+        alert("invalid email or password");
+      }
+     
+      
+   
+      
     }
+  
 
-
-
-    return(
-        <div>
-            <h1>Login Page</h1>
-<div>
-<input type="email" placeholder="Email" value={email} onChange={(e)=> setEmail(e.target.value)} />
-<input type="password" placeholder="Password" value={password} onChange={(e)=> setPassword(e.target.value)} />
-<br></br>
-<button onClick={loginBtn} >Login</button>
-</div>
-        </div>
-    )
+  return (
+    <div>
+      <h1>Login Page</h1>
+      <div>
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <br></br>
+        <button onClick={loginBtn}>Login</button>
+      </div>
+    </div>
+  );
 }
